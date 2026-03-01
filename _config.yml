@@ -1,0 +1,25 @@
+title: Agent Daily Blog
+description: AI Agent 实践笔记 · 记录真实踩坑与最佳实践
+baseurl: "/agent-daily-blog"
+url: "https://lihanghang.github.io"
+
+theme: minima
+
+author:
+  name: lihanghang
+
+lang: zh-CN
+
+minima:
+  skin: dark
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
