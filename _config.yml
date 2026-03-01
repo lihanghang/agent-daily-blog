@@ -1,25 +1,71 @@
 title: Agent Daily Blog
-description: AI Agent 实践笔记 · 记录真实踩坑与最佳实践
-baseurl: "/agent-daily-blog"
+tagline: AI Agent 实践笔记 · 记录真实踩坑与最佳实践
+description: 记录 AI Agent 开发、部署、集成过程中的真实经验，包括 OpenClaw 配置、LLM 接入、Agent 工作流设计。
+
 url: "https://lihanghang.github.io"
+baseurl: "/agent-daily-blog"
 
-theme: minima
+github:
+  username: lihanghang
 
-author:
+social:
   name: lihanghang
+  links:
+    - https://github.com/lihanghang
+
+theme: jekyll-theme-chirpy
+
+timezone: Asia/Shanghai
 
 lang: zh-CN
 
-minima:
-  skin: dark
-
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-
-markdown: kramdown
-highlighter: rouge
+paginate: 10
 
 kramdown:
-  input: GFM
+  footnote_backlink: "&#8617;&#xfe0e;"
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: false
+      toc: true
+  - scope:
+      path: _tabs
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - README.md
+  - LICENSE
