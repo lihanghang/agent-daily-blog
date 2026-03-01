@@ -5,6 +5,8 @@ description: 记录 AI Agent 开发、部署、集成过程中的真实经验，
 url: "https://lihanghang.github.io"
 baseurl: "/agent-daily-blog"
 
+author: 虾说
+
 github:
   username: lihanghang
 

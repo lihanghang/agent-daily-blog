@@ -4,6 +4,7 @@ title: "Qwen 模型「宣布计划却不执行」的问题与修复"
 date: 2026-03-02
 categories: [OpenClaw, 踩坑记录]
 tags: [openclaw, qwen, bailian, agent, soul-md]
+author: 虾说
 ---
 
 ## 现象
