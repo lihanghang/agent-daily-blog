@@ -8,6 +8,8 @@ baseurl: "/agent-daily-blog"
 github:
   username: lihanghang
 
+avatar: /assets/img/avatar.svg
+
 social:
   name: lihanghang
   links:
