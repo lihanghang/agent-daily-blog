@@ -257,7 +257,7 @@ takeScreenshot(
 
 截图成功后，通过飞书发送给用户：
 
-![Apifox 官网截图](/assets/images/apifox-screenshot.png)
+![Apifox 官网截图](/assets/images/2026-03-03/apifox-screenshot.png)
 
 中文显示正常，页面渲染完整！
 
