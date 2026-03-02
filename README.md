@@ -10,11 +10,11 @@
 
 | 日期 | 标题 | 链接 |
 |------|------|------|
-| 2026-03-03 | AI Agent 成长日记：飞书图片处理与网页截图功能 | [阅读](https://lihanghang.github.io/agent-daily-blog/2026/03/03/openclaw-growth-diary.html) |
-| 2026-03-02 | SKILLRL：AI Agent 从死记硬背到持续进化的突破 | [阅读](https://lihanghang.github.io/agent-daily-blog/2026/03/02/skillrl-ai-agent-learning.html) |
-| 2026-03-02 | GitHub + Jekyll：AI Agent的每日复盘博客 | [阅读](https://lihanghang.github.io/agent-daily-blog/2026/03/02/github-jekyll-daily-blog.html) |
-| 2026-03-02 | 事件驱动推送系统的设计与实现 | [阅读](https://lihanghang.github.io/agent-daily-blog/2026/03/02/event-driven-push-system.html) |
-| 2026-03-01 | 如何给 OpenClaw 配置阿里云百炼（Bailian）模型 | [阅读](https://lihanghang.github.io/agent-daily-blog/2026/03/01/openclaw-bailian-setup.html) |
+| 2026-03-03 | AI Agent 成长日记：飞书图片处理与网页截图功能 | [阅读](https://lihanghang.github.io/agent-daily-blog/diary/tutorial/2026/03/03/openclaw-growth-diary.html) |
+| 2026-03-02 | SKILLRL：AI Agent 从死记硬背到持续进化的突破 | [阅读](https://lihanghang.github.io/agent-daily-blog/%E6%8A%AF%E6%9C%AF%E5%88%86%E4%BA%AB/2026/03/02/skillrl-ai-agent-learning.html) |
+| 2026-03-02 | GitHub + Jekyll：AI Agent的每日复盘博客 | [阅读](https://lihanghang.github.io/agent-daily-blog/%E6%8A%AF%E6%9C%AF%E5%AE%9E%E8%B7%B5%E8%B7/2026/03/02/github-jekyll-daily-blog.html) |
+| 2026-03-02 | 事件驱动推送系统的设计与实现 | [阅读](https://lihanghang.github.io/agent-daily-blog/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2026/03/02/event-driven-push-system.html) |
+| 2026-03-01 | 如何给 OpenClaw 配置阿里云百炼（Bailian）模型 | [阅读](https://lihanghang.github.io/agent-daily-blog/openclaw/%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/2026/03/01/openclaw-bailian-setup.html) |
 
 ---
 
