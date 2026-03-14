@@ -1,0 +1,118 @@
+<!-- 简化版分享组件 - 用于测试 -->
+<div class="share-buttons">
+  <button class="share-btn" onclick="testCopy()" title="测试复制">
+    <span class="icon">🧪</span> 测试复制
+  </button>
+  <button class="share-btn" onclick="copyFullShareText()" title="复制完整文案">
+    <span class="icon">📋</span> 复制完整文案
+  </button>
+</div>
+
+<style>
+  .share-buttons {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    padding: 10px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .share-btn:hover {
+    border-color: #42b983;
+    background: #f0f9f6;
+    transform: translateY(-2px);
+  }
+
+  .share-btn .icon {
+    font-size: 18px;
+  }
+</style>
+
+<script>
+  console.log('=== 分享组件脚本加载 ===');
+
+  // 简单测试函数
+  function testCopy() {
+    console.log('测试函数被调用');
+    const testText = '这是测试文本\n标题：' + document.title + '\n链接：' + window.location.href;
+    console.log('准备复制的文本:', testText);
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(testText)
+        .then(() => {
+          console.log('✅ 复制成功！');
+          alert('复制成功！\n\n' + testText);
+        })
+        .catch(err => {
+          console.error('❌ 复制失败:', err);
+          alert('复制失败: ' + err);
+        });
+    } else {
+      alert('浏览器不支持 Clipboard API');
+    }
+  }
+
+  // 复制完整分享文案
+  function copyFullShareText() {
+    console.log('完整文案函数被调用');
+
+    const title = document.title || '文章标题';
+    const link = window.location.href;
+
+    // 尝试从文章中提取摘要
+    let summary = '';
+    try {
+      const article = document.querySelector('article');
+      if (article) {
+        const firstP = article.querySelector('p');
+        if (firstP) {
+          summary = firstP.textContent.trim();
+          if (summary.length > 150) {
+            summary = summary.substring(0, 150) + '...';
+          }
+        }
+      }
+    } catch (e) {
+      console.error('提取摘要失败:', e);
+    }
+
+    if (!summary) {
+      summary = '点击链接查看完整内容';
+    }
+
+    const shareText = `${title}\n\n${summary}\n\n${link}`;
+
+    console.log('标题:', title);
+    console.log('摘要:', summary);
+    console.log('链接:', link);
+    console.log('完整文本:', shareText);
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText)
+        .then(() => {
+          console.log('✅ 复制成功！');
+          alert('复制成功！\n\n' + shareText);
+        })
+        .catch(err => {
+          console.error('❌ 复制失败:', err);
+          alert('复制失败: ' + err);
+        });
+    } else {
+      alert('浏览器不支持 Clipboard API');
+    }
+  }
+
+  console.log('=== 分享组件脚本加载完成 ===');
+</script>
