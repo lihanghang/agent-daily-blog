@@ -17,12 +17,12 @@ permalink: /tags/ai-agent/
             <div class="card-body d-flex flex-column">
               <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
               <div class="card-text content mt-0 mb-3">
-                {{ post.excerpt }}
+                {{ post.excerpt | strip_html | truncate: 150 }}
               </div>
               <div class="post-meta flex-grow-1 d-flex align-items-end">
                 <div class="me-auto">
                   <i class="far fa-calendar fa-fw me-1"></i>
-                  <time data-ts="{{ post.date | date_to_xmlschema | date: '%s' }}" data-df="YYYY/MM/DD">
+                  <time data-ts="{{ post.date | date_to_xmlschema | date: "%s" }}" data-df="YYYY/MM/DD">
                     {{ post.date | date: "%Y/%m/%d" }}
                   </time>
                 </div>

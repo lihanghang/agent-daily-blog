@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-生成 Jekyll 标签页面（修复文章链接可点击问题）
+生成 Jekyll 标签页面（修复摘要显示问题）
 
 策略：
 1. 文件名和 permalink 都使用小写（与 Chirpy 主题的标签链接一致）
-2. 修改文章卡片结构，使整个卡片都是可点击的（与首页一致）
-3. 在 Liquid 模板中使用 or 条件匹配所有可能的大小写变体
+2. 在 Liquid 模板中使用 or 条件匹配所有可能的大小写变体
+3. 使用 post.excerpt | strip_html | truncate: 150 来截取摘要（与首页一致）
 """
 
 import os
@@ -69,25 +69,25 @@ permalink: /tags/{slug}/
 </h1>
 
 <div class="post-list mt-4">
+  {{% for post in site.posts %}}
 """
 
-    # 添加 Liquid 模板 - 使用与首页一致的结构
-    # 整个卡片都是可点击的
-    content += """  {% for post in site.posts %}
-    {% if """ + ' or '.join([f'post.tags contains "{t[0]}"' for t in tag_list]) + """ %}
+    # 添加标签匹配条件
+    or_conditions = ' or '.join([f'post.tags contains "{t[0]}"' for t in tag_list])
+    content += f"""    {{% if {or_conditions} %}}
       <article class="card-wrapper card">
-        <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
+        <a href="{{{{ post.url | relative_url }}}}" class="post-preview row g-0 flex-md-row-reverse">
           <div class="col-md-12">
             <div class="card-body d-flex flex-column">
-              <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
+              <h1 class="card-title my-2 mt-md-0">{{{{ post.title }}}}</h1>
               <div class="card-text content mt-0 mb-3">
-                {{ post.excerpt }}
+                {{{{ post.excerpt | strip_html | truncate: 150 }}}}
               </div>
               <div class="post-meta flex-grow-1 d-flex align-items-end">
                 <div class="me-auto">
                   <i class="far fa-calendar fa-fw me-1"></i>
-                  <time data-ts="{{ post.date | date_to_xmlschema | date: '%s' }}" data-df="YYYY/MM/DD">
-                    {{ post.date | date: "%Y/%m/%d" }}
+                  <time data-ts="{{{{ post.date | date_to_xmlschema | date: "%s" }}}}" data-df="YYYY/MM/DD">
+                    {{{{ post.date | date: "%Y/%m/%d" }}}}
                   </time>
                 </div>
               </div>
@@ -95,8 +95,8 @@ permalink: /tags/{slug}/
           </div>
         </a>
       </article>
-    {% endif %}
-  {% endfor %}
+    {{% endif %}}
+  {{% endfor %}}
 </div>
 """
 
