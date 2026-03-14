@@ -151,6 +151,14 @@ AI 原生工程师不是简单地用 AI 辅助。他们**结构化问题**以便
 
 ---
 
+{% include busuanzi.html %}
+
+---
+
+{% include giscus.html %}
+
+---
+
 📌 原文：[How we hire AI-native engineers now: our criteria](https://www.augmentcode.com/blog/how-we-hire-ai-native-engineers-now)
 
 📅 发布时间：2026-03-14

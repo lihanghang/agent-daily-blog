@@ -47,7 +47,7 @@ defaults:
       type: posts
     values:
       layout: post
-      comments: false
+      comments: true
       toc: true
   - scope:
       path: _tabs
@@ -67,6 +67,21 @@ compress_html:
   blanklines: false
   ignore:
     envs: [development]
+
+# Giscus 留言功能配置
+# 访问 https://giscus.app/zh-CN 配置并获取这些参数
+giscus:
+  repo: "lihanghang/agent-daily-blog"  # 你的 GitHub 仓库
+  repo_id: ""  # 仓库 ID
+  category: "Announcements"  # Discussions 分类
+  category_id: ""  # 分类 ID
+  mapping: "pathname"  # 页面到 discussions 的映射方式
+  strict: "0"  # 是否使用严格模式
+  reactions_enabled: "1"  # 是否启用表情反应
+  emit_metadata: "0"  # 是否发送元数据
+  input_position: "bottom"  # 评论框位置
+  theme: "light"  # 主题（light/dark/transparent）
+  lang: "zh-CN"  # 语言
 
 exclude:
   - "*.gem"
