@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-生成 Jekyll 标签页面（最终版本）
+生成 Jekyll 标签页面（修复文章链接可点击问题）
 
 策略：
 1. 文件名和 permalink 都使用小写（与 Chirpy 主题的标签链接一致）
-2. 在 Liquid 模板中使用 or 条件匹配所有可能的大小写变体
-3. 确保左侧的标签链接（如 /tags/augment/）能正常访问
+2. 修改文章卡片结构，使整个卡片都是可点击的（与首页一致）
+3. 在 Liquid 模板中使用 or 条件匹配所有可能的大小写变体
 """
 
 import os
@@ -71,24 +71,32 @@ permalink: /tags/{slug}/
 <div class="post-list mt-4">
 """
 
-    # 添加 Liquid 模板 - 为每个变体创建独立的匹配条件
-    or_conditions = ' or '.join([f'post.tags contains "{t[0]}"' for t in tag_list])
-
-    content += f"""  {{% for post in site.posts %}}
-    {{% if {or_conditions} %}}
-      <article class="card post-preview mb-4">
-        <div class="card-body">
-          <time datetime="{{{{ post.date | date_to_xmlschema }}}}" class="text-muted small">
-            {{{{ post.date | date: "%Y-%m-%d" }}}}
-          </time>
-          <h2 class="h5 mt-2">
-            <a href="{{{{ post.url | relative_url }}}}">{{{{ post.title }}}}</a>
-          </h2>
-          <p class="text-muted small mt-2">{{{{ post.excerpt | strip_html | truncate: 150 }}}}</p>
-        </div>
+    # 添加 Liquid 模板 - 使用与首页一致的结构
+    # 整个卡片都是可点击的
+    content += """  {% for post in site.posts %}
+    {% if """ + ' or '.join([f'post.tags contains "{t[0]}"' for t in tag_list]) + """ %}
+      <article class="card-wrapper card">
+        <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
+          <div class="col-md-12">
+            <div class="card-body d-flex flex-column">
+              <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
+              <div class="card-text content mt-0 mb-3">
+                {{ post.excerpt }}
+              </div>
+              <div class="post-meta flex-grow-1 d-flex align-items-end">
+                <div class="me-auto">
+                  <i class="far fa-calendar fa-fw me-1"></i>
+                  <time data-ts="{{ post.date | date_to_xmlschema | date: '%s' }}" data-df="YYYY/MM/DD">
+                    {{ post.date | date: "%Y/%m/%d" }}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
       </article>
-    {{% endif %}}
-  {{% endfor %}}
+    {% endif %}
+  {% endfor %}
 </div>
 """
 

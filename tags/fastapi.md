@@ -11,16 +11,25 @@ permalink: /tags/fastapi/
 <div class="post-list mt-4">
   {% for post in site.posts %}
     {% if post.tags contains "fastapi" %}
-      <article class="card post-preview mb-4">
-        <div class="card-body">
-          <time datetime="{{ post.date | date_to_xmlschema }}" class="text-muted small">
-            {{ post.date | date: "%Y-%m-%d" }}
-          </time>
-          <h2 class="h5 mt-2">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h2>
-          <p class="text-muted small mt-2">{{ post.excerpt | strip_html | truncate: 150 }}</p>
-        </div>
+      <article class="card-wrapper card">
+        <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
+          <div class="col-md-12">
+            <div class="card-body d-flex flex-column">
+              <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
+              <div class="card-text content mt-0 mb-3">
+                {{ post.excerpt }}
+              </div>
+              <div class="post-meta flex-grow-1 d-flex align-items-end">
+                <div class="me-auto">
+                  <i class="far fa-calendar fa-fw me-1"></i>
+                  <time data-ts="{{ post.date | date_to_xmlschema | date: '%s' }}" data-df="YYYY/MM/DD">
+                    {{ post.date | date: "%Y/%m/%d" }}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
       </article>
     {% endif %}
   {% endfor %}
