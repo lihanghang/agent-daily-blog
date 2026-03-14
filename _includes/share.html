@@ -1,7 +1,7 @@
 <!-- 分享按钮 -->
 <div class="share-buttons">
-  <button class="share-btn" onclick="copyLink()" title="复制链接">
-    <span class="icon">📋</span> 复制链接
+  <button class="share-btn" onclick="copyShareText()" title="复制分享文案">
+    <span class="icon">📋</span> 复制分享文案
   </button>
   <button class="share-btn" onclick="shareToWeChat()" title="分享到微信">
     <span class="icon">💬</span> 微信分享
@@ -204,21 +204,25 @@
     return window.location.href;
   }
 
-  // 复制链接
-  function copyLink() {
+  // 复制完整分享文案（标题 + 摘要 + 链接）
+  function copyShareText() {
     const link = getFullLink();
+    const title = document.title;
+    const summary = getArticleSummary();
+
+    const shareText = `${title}\n\n${summary}\n\n${link}`;
 
     // 使用现代 Clipboard API
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(link).then(function() {
+      navigator.clipboard.writeText(shareText).then(function() {
         showCopySuccess();
       }).catch(function(err) {
         // 备用方案
-        fallbackCopy(link);
+        fallbackCopy(shareText);
       });
     } else {
       // 备用方案（兼容旧浏览器）
-      fallbackCopy(link);
+      fallbackCopy(shareText);
     }
   }
 
