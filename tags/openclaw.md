@@ -1,12 +1,12 @@
 ---
 layout: page
-title: "OpenClaw"
-tag: "OpenClaw"
+title: "openclaw"
+tag: "openclaw"
 permalink: /tags/openclaw/
 ---
 
 <h1 class="dynamic-title pt-6 mb-4">
-  <i class="fas fa-tag"></i> OpenClaw
+  <i class="fas fa-tag"></i> openclaw
 </h1>
 
 <div class="post-list mt-4">

@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
-生成 Jekyll 标签页面
+生成 Jekyll 标签页面（直接放在根目录的 tags/ 文件夹）
 """
 
 import os
 import re
 import glob
 
-# 定义输出目录
-PAGES_DIR = "_pages"
+# 定义输出目录 - 直接放在根目录下的 tags 文件夹
+TAGS_DIR = "tags"
+
+# 确保目录存在
+os.makedirs(TAGS_DIR, exist_ok=True)
 
 # 获取所有文章中的标签
 tags = set()
@@ -32,7 +35,7 @@ for tag in tags:
         # 生成文件名（处理特殊字符）
         slug = tag.lower().replace(' ', '-')
         filename = f"{slug}.md"
-        filepath = os.path.join(PAGES_DIR, filename)
+        filepath = os.path.join(TAGS_DIR, filename)
 
         # 创建页面内容
         content = f"""---
@@ -78,6 +81,7 @@ permalink: /tags/{slug}/
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
 
-print(f"Generated {len(tags)} tag pages:")
+print(f"Generated {len(tags)} tag pages in {TAGS_DIR}/:")
 for tag in sorted(tags):
-    print(f"  - {tag}")
+    slug = tag.lower().replace(' ', '-')
+    print(f"  - {slug}.md -> /tags/{slug}/")
