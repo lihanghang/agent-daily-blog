@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "event-driven"
-tag: "event-driven"
 permalink: /tags/event-driven/
 ---
 
@@ -11,7 +10,7 @@ permalink: /tags/event-driven/
 
 <div class="post-list mt-4">
   {% for post in site.posts %}
-    {% if post.tags contains page.tag %}
+    {% if post.tags contains "event-driven" %}
       <article class="card post-preview mb-4">
         <div class="card-body">
           <time datetime="{{ post.date | date_to_xmlschema }}" class="text-muted small">
@@ -26,10 +25,3 @@ permalink: /tags/event-driven/
     {% endif %}
   {% endfor %}
 </div>
-
-{% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains page.tag" %}
-{% if tagged_posts.size == 0 %}
-<div class="lead mt-5">
-  <p>还没有该标签的文章。</p>
-</div>
-{% endif %}

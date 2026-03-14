@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 """
-生成 Jekyll 标签页面（直接放在根目录的 tags/ 文件夹）
+生成 Jekyll 标签页面（直接硬编码标签值，避免大小写问题）
+
+策略：
+1. 标签页面的 permalink 使用小写（与 URL 一致）
+2. 在 Liquid 模板中直接硬编码要匹配的标签值，确保大小写完全匹配
+3. 为每个变体创建独立的匹配条件
 """
 
 import os
 import re
 import glob
+from collections import Counter
 
-# 定义输出目录 - 直接放在根目录下的 tags 文件夹
+# 定义输出目录
 TAGS_DIR = "tags"
 
 # 确保目录存在
 os.makedirs(TAGS_DIR, exist_ok=True)
 
-# 获取所有文章中的标签
-tags = set()
+# 获取所有文章中的标签（统计每个变体的出现次数）
+tags_counter = {}
 
 for post_file in glob.glob("_posts/*.md"):
     with open(post_file, 'r', encoding='utf-8') as f:
@@ -27,61 +33,75 @@ for post_file in glob.glob("_posts/*.md"):
             for tag in tags_str.split(','):
                 tag = tag.strip().strip('"').strip("'")
                 if tag:
-                    tags.add(tag)
+                    # 统计每个标签变体的出现次数
+                    if tag not in tags_counter:
+                        tags_counter[tag] = 0
+                    tags_counter[tag] += 1
+
+# 按 slug（小写）分组
+tags_by_slug = {}
+for tag, count in tags_counter.items():
+    slug = tag.lower()
+    if slug not in tags_by_slug:
+        tags_by_slug[slug] = []
+    tags_by_slug[slug].append((tag, count))
 
 # 为每个标签创建页面
-for tag in tags:
-    if tag:
-        # 生成文件名（处理特殊字符）
-        slug = tag.lower().replace(' ', '-')
-        filename = f"{slug}.md"
-        filepath = os.path.join(TAGS_DIR, filename)
+for slug, tag_list in tags_by_slug.items():
+    # 选择出现次数最多的变体作为主标签（用于显示）
+    tag_list.sort(key=lambda x: x[1], reverse=True)
+    main_tag = tag_list[0][0]
 
-        # 创建页面内容
-        content = f"""---
+    # 生成文件名
+    filename = f"{slug}.md"
+    filepath = os.path.join(TAGS_DIR, filename)
+
+    # 创建页面内容
+    content = f"""---
 layout: page
-title: "{tag}"
-tag: "{tag}"
+title: "{main_tag}"
 permalink: /tags/{slug}/
 ---
 
 <h1 class="dynamic-title pt-6 mb-4">
-  <i class="fas fa-tag"></i> {tag}
+  <i class="fas fa-tag"></i> {main_tag}
 </h1>
 
 <div class="post-list mt-4">
 """
 
-        # 添加 Liquid 模板（不通过 f-string）
-        content += """  {% for post in site.posts %}
-    {% if post.tags contains page.tag %}
+    # 添加 Liquid 模板 - 为每个变体创建独立的匹配条件
+    # 这样可以确保无论文章中使用哪种大小写，都能匹配
+    or_conditions = ' or '.join([f'post.tags contains "{t[0]}"' for t in tag_list])
+
+    # 添加不包含在主标签中的变体（使用 capture 构建 Liquid 逻辑）
+    content += f"""  {{% for post in site.posts %}}
+    {{% if {or_conditions} %}}
       <article class="card post-preview mb-4">
         <div class="card-body">
-          <time datetime="{{ post.date | date_to_xmlschema }}" class="text-muted small">
-            {{ post.date | date: "%Y-%m-%d" }}
+          <time datetime="{{{{ post.date | date_to_xmlschema }}}}" class="text-muted small">
+            {{{{ post.date | date: "%Y-%m-%d" }}}}
           </time>
           <h2 class="h5 mt-2">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <a href="{{{{ post.url | relative_url }}}}">{{{{ post.title }}}}</a>
           </h2>
-          <p class="text-muted small mt-2">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+          <p class="text-muted small mt-2">{{{{ post.excerpt | strip_html | truncate: 150 }}}}</p>
         </div>
       </article>
-    {% endif %}
-  {% endfor %}
+    {{% endif %}}
+  {{% endfor %}}
 </div>
-
-{% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains page.tag" %}
-{% if tagged_posts.size == 0 %}
-<div class="lead mt-5">
-  <p>还没有该标签的文章。</p>
-</div>
-{% endif %}
 """
 
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
 
-print(f"Generated {len(tags)} tag pages in {TAGS_DIR}/:")
-for tag in sorted(tags):
-    slug = tag.lower().replace(' ', '-')
-    print(f"  - {slug}.md -> /tags/{slug}/")
+print(f"Generated {len(tags_by_slug)} tag pages in {TAGS_DIR}/:")
+for slug in sorted(tags_by_slug.keys()):
+    tag_list = tags_by_slug[slug]
+    main_tag = tag_list[0][0]
+    if len(tag_list) > 1:
+        variants = ', '.join([t[0] for t in tag_list])
+        print(f"  - {slug}.md -> /tags/{slug}/ (display: '{main_tag}', matches: {variants})")
+    else:
+        print(f"  - {slug}.md -> /tags/{slug}/ (tag: '{main_tag}')")
