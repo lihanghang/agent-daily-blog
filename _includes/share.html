@@ -81,9 +81,14 @@
     margin: 0;
   }
 
-  .short-link-result input:focus {
+  .short-link-result input:focus,
+  .short-link-result textarea:focus {
     outline: 2px solid #42b983;
     background: white;
+  }
+
+  .short-link-result textarea {
+    min-height: 100px;
   }
 </style>
 
@@ -92,6 +97,23 @@
   function getShortLink() {
     const path = window.location.pathname;
     return path.replace('/agent-daily-blog/', '');
+  }
+
+  // 提取文章摘要（第一段文字）
+  function getArticleSummary() {
+    const article = document.querySelector('article, main, .post-content');
+    if (!article) return '';
+
+    // 查找第一个 <p> 标签
+    const firstParagraph = article.querySelector('p');
+    if (firstParagraph) {
+      // 移除 HTML 标签，纯文本
+      const text = firstParagraph.textContent || firstParagraph.innerText;
+      // 限制长度
+      return text.length > 150 ? text.substring(0, 150) + '...' : text;
+    }
+
+    return '';
   }
 
   // 生成短链接（使用 is.gd 免费 API）
@@ -114,33 +136,67 @@
     });
   }
 
-  // 显示短链接
+  // 显示短链接和分享文案
   function showShortLink(shortUrl) {
     const shareButtons = document.querySelector('.share-buttons');
+
+    // 获取标题和摘要
+    const title = document.title;
+    const summary = getArticleSummary();
+
+    // 生成分享文案
+    const shareText = `${title}\n\n${summary}\n\n${shortUrl}`;
+
     const shortLinkDiv = document.createElement('div');
     shortLinkDiv.className = 'short-link-result';
     shortLinkDiv.innerHTML = `
-      <p style="margin: 10px 0; font-size: 14px;">
-        <strong>🔗 短链接：</strong>
-        <input type="text" value="${shortUrl}" readonly
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">
+          📝 分享文案：
+        </label>
+        <textarea id="share-textarea"
+                  readonly
+                  onclick="this.select();"
+                  style="width: 100%; min-width: 250px; padding: 10px;
+                         border: 1px solid #e0e0e0; border-radius: 4px;
+                         font-size: 13px; font-family: inherit;
+                         background: #f9f9f9; resize: vertical;
+                         line-height: 1.5;">${shareText}</textarea>
+      </div>
+      <div>
+        <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">
+          🔗 短链接：
+        </label>
+        <input type="text" value="${shortUrl}" readonly id="short-url-input"
                onclick="this.select();"
                style="width: 100%; max-width: 300px; padding: 8px;
                       border: 1px solid #e0e0e0; border-radius: 4px;
                       font-size: 13px; background: #f9f9f9;">
-      </p>
+      </div>
+      <button onclick="closeShortLinkResult()"
+              style="margin-top: 10px; padding: 6px 12px; border: 1px solid #ccc;
+                     border-radius: 4px; background: white; cursor: pointer;
+                     font-size: 12px;">
+        关闭
+      </button>
     `;
 
     shareButtons.parentNode.insertBefore(shortLinkDiv, shareButtons.nextSibling);
 
-    // 自动选择短链接
-    const input = shortLinkDiv.querySelector('input');
-    input.select();
+    // 自动选择分享文案
+    const textarea = shortLinkDiv.querySelector('textarea');
+    textarea.select();
 
-    // 5秒后自动隐藏
-    setTimeout(() => {
-      shortLinkDiv.style.opacity = '0';
-      setTimeout(() => shortLinkDiv.remove(), 300);
-    }, 5000);
+    // 不自动隐藏，让用户手动关闭
+  }
+
+  // 关闭短链接结果
+  function closeShortLinkResult() {
+    const result = document.querySelector('.short-link-result');
+    if (result) {
+      result.style.opacity = '0';
+      setTimeout(() => result.remove(), 300);
+    }
   }
 
   // 完整链接（用于复制）
@@ -200,11 +256,24 @@
     const link = getFullLink();
     const shortLink = getShortLink();
 
-    // 提示用户
-    alert(`分享链接已复制到剪贴板！\n\n${shortLink}\n\n打开微信，粘贴链接即可分享。`);
+    // 生成分享文案
+    const title = document.title;
+    const summary = getArticleSummary();
+    const shareText = `${title}\n\n${summary}\n\n${link}`;
 
-    // 自动复制
-    copyLink();
+    // 复制分享文案
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareText).then(() => {
+        showCopySuccess();
+      }).catch(() => {
+        fallbackCopy(shareText);
+      });
+    } else {
+      fallbackCopy(shareText);
+    }
+
+    // 提示用户
+    alert(`分享文案已复制到剪贴板！\n\n打开微信，粘贴即可分享。`);
   }
 
   // 生成并复制短链接
@@ -220,15 +289,19 @@
     try {
       const shortUrl = await generateShortUrl(fullLink);
 
-      // 显示短链接输入框
+      // 显示短链接和分享文案
       showShortLink(shortUrl);
 
-      // 复制短链接
+      // 生成分享文案并复制
+      const title = document.title;
+      const summary = getArticleSummary();
+      const shareText = `${title}\n\n${summary}\n\n${shortUrl}`;
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(shortUrl);
+        await navigator.clipboard.writeText(shareText);
         showCopySuccess();
       } else {
-        fallbackCopy(shortUrl);
+        fallbackCopy(shareText);
       }
 
     } catch (error) {
