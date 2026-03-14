@@ -117,287 +117,290 @@
 </style>
 
 <script>
-  // 存储提取的标题和摘要
-  let cachedTitle = null;
-  let cachedSummary = null;
+  (function() {
+    'use strict';
 
-  // 从 meta 标签提取标题
-  function extractTitle() {
-    if (cachedTitle) return cachedTitle;
+    // 全局状态
+    const state = {
+      title: null,
+      summary: null,
+      link: null
+    };
 
-    // 优先使用页面标题
-    if (document.title) {
-      cachedTitle = document.title;
-      return cachedTitle;
-    }
-
-    // 备用：从 h1 标签提取
-    const h1 = document.querySelector('h1');
-    if (h1) {
-      cachedTitle = h1.textContent.trim();
-      return cachedTitle;
-    }
-
-    return '文章标题';
-  }
-
-  // 提取文章摘要
-  function extractSummary() {
-    if (cachedSummary) return cachedSummary;
-
-    // 尝试多个可能的内容容器
-    const contentSelectors = [
-      'article',
-      'main',
-      '.post-content',
-      '.post',
-      '.entry-content',
-      '.content',
-      'body'
-    ];
-
-    let content = null;
-    for (const selector of contentSelectors) {
-      const element = document.querySelector(selector);
-      if (element) {
-        content = element;
-        break;
+    // 初始化
+    function init() {
+      try {
+        state.link = window.location.href;
+        extractTitleAndSummary();
+        console.log('分享组件初始化成功');
+        console.log('标题:', state.title);
+        console.log('摘要:', state.summary);
+        console.log('链接:', state.link);
+      } catch (error) {
+        console.error('分享组件初始化失败:', error);
       }
     }
 
-    if (!content) {
-      cachedSummary = '点击链接查看完整内容';
-      return cachedSummary;
-    }
-
-    // 查找第一个非空的段落
-    const paragraphs = content.querySelectorAll('p');
-
-    for (const p of paragraphs) {
-      const text = p.textContent.trim();
-      // 跳过太短的段落（可能是元数据）
-      if (text.length > 30 && !text.startsWith('>') && !text.startsWith('[')) {
-        cachedSummary = text.length > 150 ? text.substring(0, 150) + '...' : text;
-        return cachedSummary;
+    // 提取标题和摘要
+    function extractTitleAndSummary() {
+      // 提取标题 - 移除网站后缀
+      let title = document.title || '';
+      const siteNameIndex = title.indexOf(' | Agent Daily Blog');
+      if (siteNameIndex > -1) {
+        title = title.substring(0, siteNameIndex);
       }
-    }
+      state.title = title.trim() || '文章标题';
 
-    // 如果没找到合适的段落，返回默认文本
-    cachedSummary = '点击链接查看完整内容';
-    return cachedSummary;
-  }
-
-  // 生成短链接（使用 is.gd 免费 API）
-  function generateShortUrl(fullUrl) {
-    return new Promise((resolve, reject) => {
-      const apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(fullUrl)}`;
-
-      fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-          if (data.shorturl) {
-            resolve(data.shorturl);
-          } else {
-            reject('Failed to generate short URL');
+      // 提取摘要
+      let summary = '';
+      const contentContainer = document.querySelector('article');
+      if (contentContainer) {
+        const paragraphs = contentContainer.querySelectorAll('p');
+        for (const p of paragraphs) {
+          const text = p.textContent || p.innerText || '';
+          const trimmedText = text.trim();
+          // 跳过太短、引用、列表项
+          if (trimmedText.length > 30 &&
+              !trimmedText.startsWith('>') &&
+              !trimmedText.startsWith('[') &&
+              !trimmedText.startsWith('•')) {
+            summary = trimmedText;
+            break;
           }
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  }
-
-  // 显示短链接和分享文案
-  function showShortLink(shortUrl) {
-    const shareButtons = document.querySelector('.share-buttons');
-    const title = extractTitle();
-    const summary = extractSummary();
-
-    const shareText = `${title}\n\n${summary}\n\n${shortUrl}`;
-
-    // 移除已有的结果
-    const existingResult = document.querySelector('.short-link-result');
-    if (existingResult) {
-      existingResult.remove();
-    }
-
-    const shortLinkDiv = document.createElement('div');
-    shortLinkDiv.className = 'short-link-result';
-    shortLinkDiv.innerHTML = `
-      <div style="margin-bottom: 12px;">
-        <label>📝 分享文案：</label>
-        <textarea id="share-textarea"
-                  readonly
-                  onclick="this.select();">${shareText}</textarea>
-      </div>
-      <div style="margin-bottom: 12px;">
-        <label>🔗 短链接：</label>
-        <input type="text" value="${shortUrl}" readonly id="short-url-input"
-               onclick="this.select();">
-      </div>
-      <button onclick="closeShortLinkResult()"
-              style="padding: 6px 12px; border: 1px solid #ccc;
-                     border-radius: 4px; background: white; cursor: pointer;
-                     font-size: 12px;">
-        关闭
-      </button>
-    `;
-
-    shareButtons.parentNode.insertBefore(shortLinkDiv, shareButtons.nextSibling);
-
-    // 自动选择分享文案
-    const textarea = shortLinkDiv.querySelector('textarea');
-    textarea.select();
-
-    // 不自动隐藏
-  }
-
-  // 关闭短链接结果
-  function closeShortLinkResult() {
-    const result = document.querySelector('.short-link-result');
-    if (result) {
-      result.style.opacity = '0';
-      setTimeout(() => result.remove(), 300);
-    }
-  }
-
-  // 获取完整链接
-  function getFullLink() {
-    return window.location.href;
-  }
-
-  // 复制文本
-  function copyText(text) {
-    return new Promise((resolve, reject) => {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text)
-          .then(() => resolve())
-          .catch(() => fallbackCopy(text).then(resolve).catch(reject));
-      } else {
-        fallbackCopy(text).then(resolve).catch(reject);
+        }
       }
-    });
-  }
+      // 限制长度
+      if (summary.length > 150) {
+        summary = summary.substring(0, 150) + '...';
+      }
+      state.summary = summary || '点击链接查看完整内容';
+    }
 
-  // 备用复制方案
-  function fallbackCopy(text) {
-    return new Promise((resolve, reject) => {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
+    // 生成短链接
+    function generateShortUrl(fullUrl) {
+      return new Promise((resolve, reject) => {
+        const apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(fullUrl)}`;
+
+        fetch(apiUrl)
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+          })
+          .then(data => {
+            if (data.shorturl) {
+              resolve(data.shorturl);
+            } else {
+              reject(new Error('No short URL returned'));
+            }
+          })
+          .catch(error => {
+            console.error('短链接生成失败:', error);
+            reject(error);
+          });
+      });
+    }
+
+    // 显示短链接结果
+    function showShortLinkResult(shortUrl) {
+      const shareButtons = document.querySelector('.share-buttons');
+      if (!shareButtons) {
+        console.error('找不到分享按钮容器');
+        return;
+      }
+
+      // 生成分享文案
+      const shareText = `${state.title}\n\n${state.summary}\n\n${shortUrl}`;
+
+      // 移除已有的结果
+      const existing = document.querySelector('.short-link-result');
+      if (existing) {
+        existing.remove();
+      }
+
+      const resultDiv = document.createElement('div');
+      resultDiv.className = 'short-link-result';
+      resultDiv.innerHTML = `
+        <div style="margin-bottom: 12px;">
+          <label>📝 分享文案：</label>
+          <textarea readonly onclick="this.select()">${shareText}</textarea>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <label>🔗 短链接：</label>
+          <input type="text" value="${shortUrl}" readonly onclick="this.select()">
+        </div>
+        <button onclick="this.closest('.short-link-result').remove()"
+                style="padding: 6px 12px; border: 1px solid #ccc;
+                       border-radius: 4px; background: white; cursor: pointer;
+                       font-size: 12px;">
+          关闭
+        </button>
+      `;
+
+      shareButtons.parentNode.insertBefore(resultDiv, shareButtons.nextSibling);
+
+      // 自动选择文本
+      const textarea = resultDiv.querySelector('textarea');
+      if (textarea) {
+        textarea.select();
+      }
+    }
+
+    // 复制文本
+    function copyText(text) {
+      return new Promise((resolve, reject) => {
+        // 优先使用现代 API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text)
+            .then(() => {
+              console.log('复制成功 (Clipboard API):', text);
+              resolve();
+            })
+            .catch(err => {
+              console.warn('Clipboard API 失败，使用备用方案:', err);
+              fallbackCopy(text).then(resolve).catch(reject);
+            });
+        } else {
+          fallbackCopy(text).then(resolve).catch(reject);
+        }
+      });
+    }
+
+    // 备用复制方案
+    function fallbackCopy(text) {
+      return new Promise((resolve, reject) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.top = '0';
+        textarea.style.left = '0';
+        textarea.style.width = '2em';
+        textarea.style.height = '2em';
+        textarea.style.padding = '0';
+        textarea.style.border = 'none';
+        textarea.style.outline = 'none';
+        textarea.style.boxShadow = 'none';
+        textarea.style.background = 'transparent';
+
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        try {
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textarea);
+
+          if (successful) {
+            console.log('复制成功 (execCommand):', text);
+            resolve();
+          } else {
+            reject(new Error('execCommand failed'));
+          }
+        } catch (err) {
+          document.body.removeChild(textarea);
+          console.error('execCommand 错误:', err);
+          reject(err);
+        }
+      });
+    }
+
+    // 显示成功提示
+    function showSuccess() {
+      const successDiv = document.getElementById('copy-success');
+      if (successDiv) {
+        successDiv.style.display = 'block';
+        setTimeout(() => {
+          successDiv.style.display = 'none';
+        }, 2000);
+      }
+    }
+
+    // 复制分享文案
+    function copyShareText() {
+      if (!state.title || !state.summary) {
+        console.warn('标题或摘要为空，重新提取');
+        extractTitleAndSummary();
+      }
+
+      const shareText = `${state.title}\n\n${state.summary}\n\n${state.link}`;
+      console.log('准备复制分享文案:', shareText);
+
+      copyText(shareText)
+        .then(() => {
+          showSuccess();
+        })
+        .catch(err => {
+          console.error('复制失败:', err);
+          alert('复制失败，请手动复制');
+        });
+    }
+
+    // 微信分享
+    function shareToWeChat() {
+      if (!state.title || !state.summary) {
+        console.warn('标题或摘要为空，重新提取');
+        extractTitleAndSummary();
+      }
+
+      const shareText = `${state.title}\n\n${state.summary}\n\n${state.link}`;
+      console.log('准备复制微信分享文案:', shareText);
+
+      copyText(shareText)
+        .then(() => {
+          showSuccess();
+          alert(`分享文案已复制到剪贴板！\n\n打开微信，粘贴即可分享。`);
+        })
+        .catch(err => {
+          console.error('复制失败:', err);
+          alert('复制失败，请手动复制');
+        });
+    }
+
+    // 生成并复制短链接
+    async function generateAndCopyShortLink() {
+      const btn = event?.target?.closest('.share-btn');
+      const originalText = btn ? btn.innerHTML : '';
+
+      // 显示加载状态
+      if (btn) {
+        btn.innerHTML = '<span class="icon">⏳</span> 生成中...';
+        btn.disabled = true;
+      }
 
       try {
-        const success = document.execCommand('copy');
-        document.body.removeChild(textarea);
+        const shortUrl = await generateShortUrl(state.link);
+        console.log('短链接生成成功:', shortUrl);
 
-        if (success) {
-          resolve();
-        } else {
-          reject(new Error('Copy failed'));
+        showShortLinkResult(shortUrl);
+
+        // 复制带短链接的分享文案
+        const shareText = `${state.title}\n\n${state.summary}\n\n${shortUrl}`;
+        await copyText(shareText);
+        showSuccess();
+
+      } catch (error) {
+        console.error('短链接生成失败:', error);
+        alert('短链接生成失败，请稍后重试。');
+      } finally {
+        // 恢复按钮状态
+        if (btn) {
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }, 500);
         }
-      } catch (err) {
-        document.body.removeChild(textarea);
-        reject(err);
       }
-    });
-  }
-
-  // 显示复制成功提示
-  function showCopySuccess() {
-    const successDiv = document.getElementById('copy-success');
-    successDiv.style.display = 'block';
-
-    setTimeout(function() {
-      successDiv.style.display = 'none';
-    }, 2000);
-  }
-
-  // 复制分享文案
-  function copyShareText() {
-    const link = getFullLink();
-    const title = extractTitle();
-    const summary = extractSummary();
-
-    const shareText = `${title}\n\n${summary}\n\n${link}`;
-
-    copyText(shareText)
-      .then(() => {
-        console.log('分享文案已复制:', shareText);
-        showCopySuccess();
-      })
-      .catch(err => {
-        console.error('复制失败:', err);
-        alert('复制失败，请手动复制');
-      });
-  }
-
-  // 微信分享
-  function shareToWeChat() {
-    const link = getFullLink();
-    const title = extractTitle();
-    const summary = extractSummary();
-
-    const shareText = `${title}\n\n${summary}\n\n${link}`;
-
-    copyText(shareText)
-      .then(() => {
-        console.log('分享文案已复制:', shareText);
-        showCopySuccess();
-        alert(`分享文案已复制到剪贴板！\n\n打开微信，粘贴即可分享。`);
-      })
-      .catch(err => {
-        console.error('复制失败:', err);
-        alert('复制失败，请手动复制');
-      });
-  }
-
-  // 生成并复制短链接
-  async function generateAndCopyShortLink() {
-    const fullLink = getFullLink();
-    const btn = event.target.closest('.share-btn');
-    const originalText = btn.innerHTML;
-
-    // 显示加载状态
-    btn.innerHTML = '<span class="icon">⏳</span> 生成中...';
-    btn.disabled = true;
-
-    try {
-      const shortUrl = await generateShortUrl(fullLink);
-
-      // 显示短链接和分享文案
-      showShortLink(shortUrl);
-
-      // 生成分享文案并复制
-      const title = extractTitle();
-      const summary = extractSummary();
-      const shareText = `${title}\n\n${summary}\n\n${shortUrl}`;
-
-      await copyText(shareText);
-
-      console.log('分享文案已复制:', shareText);
-      showCopySuccess();
-
-    } catch (error) {
-      console.error('短链接生成失败:', error);
-      alert('短链接生成失败，请稍后重试。');
-    } finally {
-      // 恢复按钮状态
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-      }, 1000);
     }
-  }
 
-  // 页面加载后提取一次标题和摘要
-  document.addEventListener('DOMContentLoaded', function() {
-    extractTitle();
-    extractSummary();
-    console.log('分享组件已加载');
-    console.log('标题:', cachedTitle);
-    console.log('摘要:', cachedSummary);
-  });
+    // 暴露全局函数
+    window.copyShareText = copyShareText;
+    window.shareToWeChat = shareToWeChat;
+    window.generateAndCopyShortLink = generateAndCopyShortLink;
+
+    // DOM 加载完成后初始化
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+  })();
 </script>
