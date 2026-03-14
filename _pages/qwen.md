@@ -1,9 +1,12 @@
 ---
 layout: page
+title: "qwen"
+tag: "qwen"
+permalink: /tags/qwen/
 ---
 
 <h1 class="dynamic-title pt-6 mb-4">
-  <i class="fas fa-tag"></i> {{ page.tag }}
+  <i class="fas fa-tag"></i> qwen
 </h1>
 
 <div class="post-list mt-4">

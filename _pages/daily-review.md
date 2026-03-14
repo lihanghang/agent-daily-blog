@@ -1,9 +1,12 @@
 ---
 layout: page
+title: "daily-review"
+tag: "daily-review"
+permalink: /tags/daily-review/
 ---
 
 <h1 class="dynamic-title pt-6 mb-4">
-  <i class="fas fa-tag"></i> {{ page.tag }}
+  <i class="fas fa-tag"></i> daily-review
 </h1>
 
 <div class="post-list mt-4">

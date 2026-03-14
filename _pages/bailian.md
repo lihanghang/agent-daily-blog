@@ -1,9 +1,12 @@
 ---
 layout: page
+title: "bailian"
+tag: "bailian"
+permalink: /tags/bailian/
 ---
 
 <h1 class="dynamic-title pt-6 mb-4">
-  <i class="fas fa-tag"></i> {{ page.tag }}
+  <i class="fas fa-tag"></i> bailian
 </h1>
 
 <div class="post-list mt-4">

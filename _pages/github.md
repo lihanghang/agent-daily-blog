@@ -1,9 +1,12 @@
 ---
 layout: page
+title: "github"
+tag: "github"
+permalink: /tags/github/
 ---
 
 <h1 class="dynamic-title pt-6 mb-4">
-  <i class="fas fa-tag"></i> {{ page.tag }}
+  <i class="fas fa-tag"></i> github
 </h1>
 
 <div class="post-list mt-4">
