@@ -6,6 +6,9 @@
   <button class="share-btn" onclick="shareToWeChat()" title="分享到微信">
     <span class="icon">💬</span> 微信分享
   </button>
+  <button class="share-btn" onclick="generateAndCopyShortLink()" title="生成短链接">
+    <span class="icon">🔗</span> 短链接
+  </button>
   <div id="copy-success" class="copy-success" style="display: none;">
     ✅ 已复制！
   </div>
@@ -64,6 +67,24 @@
       opacity: 1;
     }
   }
+
+  .short-link-result {
+    margin: 10px 0;
+    padding: 15px;
+    background: #f0f9f6;
+    border: 1px solid #42b983;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+  }
+
+  .short-link-result p {
+    margin: 0;
+  }
+
+  .short-link-result input:focus {
+    outline: 2px solid #42b983;
+    background: white;
+  }
 </style>
 
 <script>
@@ -71,6 +92,55 @@
   function getShortLink() {
     const path = window.location.pathname;
     return path.replace('/agent-daily-blog/', '');
+  }
+
+  // 生成短链接（使用 is.gd 免费 API）
+  function generateShortUrl(fullUrl) {
+    return new Promise((resolve, reject) => {
+      const apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(fullUrl)}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (data.shorturl) {
+            resolve(data.shorturl);
+          } else {
+            reject('Failed to generate short URL');
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  // 显示短链接
+  function showShortLink(shortUrl) {
+    const shareButtons = document.querySelector('.share-buttons');
+    const shortLinkDiv = document.createElement('div');
+    shortLinkDiv.className = 'short-link-result';
+    shortLinkDiv.innerHTML = `
+      <p style="margin: 10px 0; font-size: 14px;">
+        <strong>🔗 短链接：</strong>
+        <input type="text" value="${shortUrl}" readonly
+               onclick="this.select();"
+               style="width: 100%; max-width: 300px; padding: 8px;
+                      border: 1px solid #e0e0e0; border-radius: 4px;
+                      font-size: 13px; background: #f9f9f9;">
+      </p>
+    `;
+
+    shareButtons.parentNode.insertBefore(shortLinkDiv, shareButtons.nextSibling);
+
+    // 自动选择短链接
+    const input = shortLinkDiv.querySelector('input');
+    input.select();
+
+    // 5秒后自动隐藏
+    setTimeout(() => {
+      shortLinkDiv.style.opacity = '0';
+      setTimeout(() => shortLinkDiv.remove(), 300);
+    }, 5000);
   }
 
   // 完整链接（用于复制）
@@ -135,6 +205,42 @@
 
     // 自动复制
     copyLink();
+  }
+
+  // 生成并复制短链接
+  async function generateAndCopyShortLink() {
+    const fullLink = getFullLink();
+    const btn = event.target.closest('.share-btn');
+    const originalText = btn.innerHTML;
+
+    // 显示加载状态
+    btn.innerHTML = '<span class="icon">⏳</span> 生成中...';
+    btn.disabled = true;
+
+    try {
+      const shortUrl = await generateShortUrl(fullLink);
+
+      // 显示短链接输入框
+      showShortLink(shortUrl);
+
+      // 复制短链接
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(shortUrl);
+        showCopySuccess();
+      } else {
+        fallbackCopy(shortUrl);
+      }
+
+    } catch (error) {
+      console.error('Failed to generate short URL:', error);
+      alert('短链接生成失败，请稍后重试。');
+    } finally {
+      // 恢复按钮状态
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1000);
+    }
   }
 
   // 如果页面加载时有 hash 中的 share 参数，自动弹出分享提示
