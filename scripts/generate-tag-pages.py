@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-生成 Jekyll 标签页面（直接硬编码标签值，避免大小写问题）
+生成 Jekyll 标签页面（最终版本）
 
 策略：
-1. 标签页面的 permalink 使用小写（与 URL 一致）
-2. 在 Liquid 模板中直接硬编码要匹配的标签值，确保大小写完全匹配
-3. 为每个变体创建独立的匹配条件
+1. 文件名和 permalink 都使用小写（与 Chirpy 主题的标签链接一致）
+2. 在 Liquid 模板中使用 or 条件匹配所有可能的大小写变体
+3. 确保左侧的标签链接（如 /tags/augment/）能正常访问
 """
 
 import os
@@ -52,11 +52,12 @@ for slug, tag_list in tags_by_slug.items():
     tag_list.sort(key=lambda x: x[1], reverse=True)
     main_tag = tag_list[0][0]
 
-    # 生成文件名
+    # 生成文件名 - 使用小写（与 permalink 一致）
     filename = f"{slug}.md"
     filepath = os.path.join(TAGS_DIR, filename)
 
     # 创建页面内容
+    # permalink 使用小写
     content = f"""---
 layout: page
 title: "{main_tag}"
@@ -71,10 +72,8 @@ permalink: /tags/{slug}/
 """
 
     # 添加 Liquid 模板 - 为每个变体创建独立的匹配条件
-    # 这样可以确保无论文章中使用哪种大小写，都能匹配
     or_conditions = ' or '.join([f'post.tags contains "{t[0]}"' for t in tag_list])
 
-    # 添加不包含在主标签中的变体（使用 capture 构建 Liquid 逻辑）
     content += f"""  {{% for post in site.posts %}}
     {{% if {or_conditions} %}}
       <article class="card post-preview mb-4">
