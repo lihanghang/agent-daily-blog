@@ -139,11 +139,14 @@ AI 原生工程师不是简单地用 AI 辅助。他们**结构化问题**以便
 
 ## 分享这篇文章
 
-觉得有用？点击下方按钮复制分享文案：
+觉得有用？点击下方按钮复制分享文案（自动生成短链接）：
 
 <div class="share-buttons">
   <button onclick="shareFunctions.copyFullShareText()" style="padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
-    <span style="font-size: 18px;">📋</span> 复制完整文案
+    <span style="font-size: 18px;">📋</span> 复制完整文案（含短链接）
+  </button>
+  <button onclick="window.shareFunctions.copyShortLinkOnly()" style="padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+    <span style="font-size: 18px;">🔗</span> 只复制短链接
   </button>
 </div>
 
