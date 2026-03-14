@@ -48,6 +48,14 @@ Augment 还提出了工程师角色的演进：
 
 ---
 
+## 分享这篇文章
+
+觉得有用？分享给更多人吧！
+
+{% include share.html %}
+
+---
+
 > 来源：Augment 关于 AI 时代工程师核心能力的框架讨论
 >
 > 链接：[原文](https://r.jina.ai/https://augmentcode.dev/blog/ai-era-engineer-core-skills)（假设链接）

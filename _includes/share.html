@@ -1,0 +1,146 @@
+<!-- 分享按钮 -->
+<div class="share-buttons">
+  <button class="share-btn" onclick="copyLink()" title="复制链接">
+    <span class="icon">📋</span> 复制链接
+  </button>
+  <button class="share-btn" onclick="shareToWeChat()" title="分享到微信">
+    <span class="icon">💬</span> 微信分享
+  </button>
+  <div id="copy-success" class="copy-success" style="display: none;">
+    ✅ 已复制！
+  </div>
+</div>
+
+<style>
+  .share-buttons {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    padding: 10px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .share-btn:hover {
+    border-color: #42b983;
+    background: #f0f9f6;
+    transform: translateY(-2px);
+  }
+
+  .share-btn .icon {
+    font-size: 18px;
+  }
+
+  .copy-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #42b983;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  // 获取当前页面的短链接（去掉域名后的路径）
+  function getShortLink() {
+    const path = window.location.pathname;
+    return path.replace('/agent-daily-blog/', '');
+  }
+
+  // 完整链接（用于复制）
+  function getFullLink() {
+    return window.location.href;
+  }
+
+  // 复制链接
+  function copyLink() {
+    const link = getFullLink();
+
+    // 使用现代 Clipboard API
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(function() {
+        showCopySuccess();
+      }).catch(function(err) {
+        // 备用方案
+        fallbackCopy(link);
+      });
+    } else {
+      // 备用方案（兼容旧浏览器）
+      fallbackCopy(link);
+    }
+  }
+
+  // 备用复制方案
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      document.execCommand('copy');
+      showCopySuccess();
+    } catch (err) {
+      alert('复制失败，请手动复制');
+    }
+
+    document.body.removeChild(textarea);
+  }
+
+  // 显示复制成功提示
+  function showCopySuccess() {
+    const successDiv = document.getElementById('copy-success');
+    successDiv.style.display = 'block';
+
+    setTimeout(function() {
+      successDiv.style.display = 'none';
+    }, 2000);
+  }
+
+  // 微信分享
+  function shareToWeChat() {
+    const link = getFullLink();
+    const shortLink = getShortLink();
+
+    // 提示用户
+    alert(`分享链接已复制到剪贴板！\n\n${shortLink}\n\n打开微信，粘贴链接即可分享。`);
+
+    // 自动复制
+    copyLink();
+  }
+
+  // 如果页面加载时有 hash 中的 share 参数，自动弹出分享提示
+  window.onload = function() {
+    if (window.location.hash === '#share') {
+      shareToWeChat();
+    }
+  };
+</script>
