@@ -141,7 +141,67 @@ AI 原生工程师不是简单地用 AI 辅助。他们**结构化问题**以便
 
 觉得有用？点击下方按钮复制分享文案：
 
-{% include share-simple.html %}
+<div class="share-buttons">
+  <button onclick="copyFullShareText()" style="padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+    <span style="font-size: 18px;">📋</span> 复制完整文案
+  </button>
+</div>
+
+<script>
+console.log('=== 分享脚本开始 ===');
+
+function copyFullShareText() {
+  console.log('copyFullShareText 函数被调用');
+
+  const title = document.title || '文章标题';
+  const link = window.location.href;
+
+  // 提取摘要
+  let summary = '';
+  try {
+    const article = document.querySelector('article');
+    if (article) {
+      const firstP = article.querySelector('p');
+      if (firstP) {
+        summary = firstP.textContent.trim();
+        if (summary.length > 150) {
+          summary = summary.substring(0, 150) + '...';
+        }
+      }
+    }
+  } catch (e) {
+    console.error('提取摘要失败:', e);
+  }
+
+  if (!summary) {
+    summary = '点击链接查看完整内容';
+  }
+
+  const shareText = `${title}\n\n${summary}\n\n${link}`;
+
+  console.log('标题:', title);
+  console.log('摘要:', summary);
+  console.log('链接:', link);
+  console.log('完整文本:', shareText);
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(shareText)
+      .then(() => {
+        console.log('✅ 复制成功！');
+        alert('复制成功！\n\n' + shareText);
+      })
+      .catch(err => {
+        console.error('❌ 复制失败:', err);
+        alert('复制失败: ' + err);
+      });
+  } else {
+    alert('浏览器不支持 Clipboard API');
+  }
+}
+
+console.log('copyFullShareText 函数已定义');
+console.log('=== 分享脚本结束 ===');
+</script>
 
 ---
 
