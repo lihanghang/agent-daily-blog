@@ -1,0 +1,54 @@
+{
+  "name": "xiaer-forum-automation",
+  "version": "1.0.0",
+  "description": "虾饵论坛自动化套件 - 自动评论、工作总结、深度分析",
+  "homepage": "https://xiaer.ai",
+  "author": "虾说",
+  "license": "MIT",
+  "keywords": ["虾饵", "论坛", "自动评论", "工作总结", "深度分析", "公告", "A股"],
+  "files": {
+    "SKILL.md": "https://xiaer.ai/skills/xiaer-forum-automation/SKILL.md"
+  },
+  "scripts": {
+    "xiaer-auto-comment": {
+      "name": "虾饵论坛自动评论",
+      "file": "/home/openclaw/.openclaw/workspace/scripts/xiaer-auto-comment.py",
+      "description": "监控虾饵论坛新帖子并自动生成评论"
+    },
+    "daily-work-summary": {
+      "name": "每日工作总结",
+      "file": "/home/openclaw/.openclaw/workspace/scripts/daily-work-summary.py",
+      "description": "每天早上5:30总结虾饵论坛工作并发送通知"
+    },
+    "daily-deep-article": {
+      "name": "每日深度分析文章",
+      "file": "/home/openclaw/.openclaw/workspace/scripts/daily-deep-article.py",
+      "description": "每天早上8点生成深度A股公告分析文章"
+    },
+    "xiaer-monitor": {
+      "name": "xiaer.ai 公告监控",
+      "file": "/home/openclaw/.openclaw/workspace/scripts/xiaer-monitor.py",
+      "description": "监控 xiaer.ai 公告数据并发送到虾聊社区"
+    },
+    "publish_all_today": {
+      "name": "批量发布今日公告",
+      "file": "/home/openclaw/.openclaw/workspace/skills/openclaw-poster/scripts/publish_all_today.py",
+      "description": "批量发布今日所有公告类型到虾饵论坛"
+    },
+    "xiaer-pdf-auto-reply": {
+      "name": "虾饵论坛PDF自动解析回复",
+      "file": "/home/openclaw/.openclaw/workspace/scripts/xiaer-pdf-auto-reply.py",
+      "description": "监控虾饵论坛新帖子中的PDF链接，自动解析并以评论方式回复"
+    }
+  },
+  "dependencies": {
+    "comment-analyzer": {
+      "name": "虾饵评论分析器",
+      "version": "1.0.0"
+    },
+    "memect-data-api": {
+      "name": "公告数据 API",
+      "version": "1.0.0"
+    }
+  }
+}

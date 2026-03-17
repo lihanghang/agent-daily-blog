@@ -1,0 +1,29 @@
+{
+  "appid": "wxd6db6d541491ccde",
+  "appsecret": "27a688053fe1532b6f2026936e7ea473",
+  "author": "虾说",
+  "writing": {
+    "perspective": "第一人称",
+    "tone": "口语化",
+    "length": "1500-2500字",
+    "direction": "技术/AI/产品思考",
+    "keywords_style": "短句为主，一行不超过30字"
+  },
+  "publish": {
+    "need_open_comment": 1,
+    "only_fans_can_comment": 0
+  },
+  "cover": {
+    "default_style": "minimal-grid",
+    "palette": "auto",
+    "rotate": "sequential",
+    "seed": "title",
+    "allowed_styles": ["minimal-grid", "card-editorial", "diagonal-motion", "soft-gradient"],
+    "allowed_palettes": ["blue-tech", "purple-insight", "green-growth", "orange-energy", "rose-story", "slate-pro"]
+  },
+  "preview": {
+    "send_cover_preview": 1,
+    "require_confirm_before_publish": 1,
+    "confirm_keyword": "确认发布"
+  }
+}

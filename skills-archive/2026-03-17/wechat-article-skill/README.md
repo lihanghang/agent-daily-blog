@@ -1,0 +1,190 @@
+# wechat-article-skill
+
+微信公众号文章创作 Skill —— 从主题到草稿箱，一句话搞定。
+
+> 面向 OpenClaw 的微信公众号创作与草稿发布能力。支持：文章生成、公众号友好排版、封面风格化生成、发布前图文预览确认、推送草稿箱。
+
+---
+
+## 功能
+
+- ✍️ **AI 文章创作**：只需一句主题，按配置风格生成完整文章
+- 📝 **公众号排版**：内联 CSS HTML 模板，适配微信编辑器
+- 🎨 **封面风格系统**：4 种风格 × 6 套配色，风格一致但颜色可变化
+- 🖼️ **首次配置可视化**：固定预览拼图 + 中文编号选择
+- 👀 **发布前预览确认**：先看正文预览 + 封面预览，再决定是否发布
+- 🚀 **草稿推送**：自动上传封面并创建草稿（默认不直接群发）
+
+---
+
+## 快速开始（OpenClaw）
+
+### 1) 放置 Skill 目录
+
+将本仓库放到 OpenClaw 工作区 skills 目录：
+
+```bash
+~/.openclaw/workspace/skills/wechat-article-skill
+```
+
+### 2) 在对话中触发
+
+示例：
+
+- `帮我写一篇公众号文章，主题是 XXX`
+- `把这篇文章生成封面并推送到草稿箱`
+- `修改公众号配置`
+
+### 3) 首次配置（自动引导）
+
+首次触发会询问并保存到 `wechat-article.config.json`：
+
+1. 公众号 `AppID` / `AppSecret`
+2. 默认作者
+3. 写作风格（视角、语气、长度、方向）
+4. 评论开关
+5. 封面默认策略（先看预览图再选）
+
+---
+
+## 首次封面配置（中文编号）
+
+系统会发送固定预览图：`assets/cover-style-palette-preview-grid.jpg`
+
+然后按编号选择：
+
+- A 风格（A1~A4）
+- B 配色策略（B1 自动 / B2 固定）
+- C 配色方案（C1~C6，仅 B2 时必选）
+- D 轮换方式（D1 顺序 / D2 随机，仅 B1 时必选）
+
+示例回复：
+
+- `A2 B1 D1`（编辑卡片 + 自动配色 + 顺序轮换）
+- `A1 B2 C3`（极简网格 + 固定增长绿）
+
+---
+
+## 日常使用流程
+
+配置完成后，默认流程：
+
+1. 创作正文
+2. 排版为 HTML
+3. 生成封面
+4. 发送“正文+封面”预览
+5. 你回复：`确认发布 / 修改封面 / 修改正文`
+6. 确认后推送草稿箱
+
+> 默认未收到“确认发布”不会执行草稿推送。
+
+---
+
+## 封面风格与配色
+
+### 风格（Style）
+
+1. `minimal-grid`（极简网格）
+2. `card-editorial`（编辑卡片）
+3. `diagonal-motion`（斜切动势）
+4. `soft-gradient`（柔和渐变）
+
+### 配色（Palette）
+
+1. `blue-tech`（科技蓝）
+2. `purple-insight`（洞察紫）
+3. `green-growth`（增长绿）
+4. `orange-energy`（活力橙）
+5. `rose-story`（故事玫红）
+6. `slate-pro`（专业灰）
+
+---
+
+## 项目结构
+
+```text
+wechat-article-skill/
+├── SKILL.md
+├── README.md
+├── assets/
+│   ├── NotoSansCJKsc-Bold.otf
+│   └── cover-style-palette-preview-grid.jpg
+├── references/
+│   └── article-style.md
+└── scripts/
+    ├── create_cover.py
+    ├── create_cover_preview_grid.py
+    └── publish_draft.py
+```
+
+---
+
+## 独立脚本使用（不依赖 OpenClaw）
+
+### 安装依赖
+
+```bash
+pip3 install Pillow
+```
+
+### 生成封面
+
+```bash
+python3 scripts/create_cover.py \
+  --title "文章主标题" \
+  --subtitle "副标题" \
+  --style minimal-grid \
+  --palette auto \
+  --rotate sequential \
+  --output cover.jpg
+```
+
+### 生成风格预览拼图
+
+```bash
+python3 scripts/create_cover_preview_grid.py
+```
+
+### 推送草稿
+
+```bash
+python3 scripts/publish_draft.py \
+  --title "文章标题" \
+  --author "作者名" \
+  --digest "文章摘要" \
+  --content-file article.html \
+  --cover cover.jpg \
+  --appid "你的AppID" \
+  --appsecret "你的AppSecret" \
+  --need-open-comment 1 \
+  --only-fans-can-comment 0
+```
+
+也支持环境变量：
+
+- `WX_APPID`
+- `WX_APPSECRET`
+- `WX_AUTHOR`
+
+---
+
+## 注意事项
+
+- 仅推送到草稿箱，**不会直接发布**
+- 需要在公众号后台将服务器 IP 加入白名单
+- 封面图尺寸 `900×383`（2.35:1）
+- 发布前建议先看图文预览再确认
+
+---
+
+## 字体与版权
+
+- 封面默认字体：`assets/NotoSansCJKsc-Bold.otf`
+- 字体来源：[思源黑体 / Noto CJK](https://github.com/googlefonts/noto-cjk)
+- 字体协议：**SIL Open Font License**（可商用，按协议使用）
+
+---
+
+## License
+
+MIT

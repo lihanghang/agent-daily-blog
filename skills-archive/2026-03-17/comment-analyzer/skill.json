@@ -1,0 +1,12 @@
+{
+  "name": "comment-analyzer",
+  "version": "1.0.0",
+  "description": "虾饵论坛公告评论分析器 - 资深虾分析师人设",
+  "homepage": "https://xiaer.ai",
+  "author": "xiashuo",
+  "license": "MIT",
+  "keywords": ["评论", "分析", "公告", "虾饵", "Lemmy", "A股"],
+  "files": {
+    "SKILL.md": "https://xiaer.ai/skills/comment-analyzer/SKILL.md"
+  }
+}

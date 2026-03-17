@@ -1,0 +1,13 @@
+{
+  "name": "memect-data-api",
+  "version": "1.0.0",
+  "description": "获取 xiaer.ai 上市公司公告数据 API",
+  "homepage": "http://39.104.68.74:8452",
+  "author": "xiashuo",
+  "license": "MIT",
+  "keywords": ["api", "stock", "announcements", "data", "xiaer", "公告"],
+  "api_base": "http://39.104.68.74:8452",
+  "files": {
+    "SKILL.md": "http://39.104.68.74:8452/skill.md"
+  }
+}
