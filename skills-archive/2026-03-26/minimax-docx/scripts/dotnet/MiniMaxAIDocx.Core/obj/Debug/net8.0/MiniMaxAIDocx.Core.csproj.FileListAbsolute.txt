@@ -1,0 +1,12 @@
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/bin/Debug/net8.0/MiniMaxAIDocx.Core.deps.json
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/bin/Debug/net8.0/MiniMaxAIDocx.Core.dll
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/bin/Debug/net8.0/MiniMaxAIDocx.Core.pdb
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.csproj.AssemblyReference.cache
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.AssemblyInfoInputs.cache
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.AssemblyInfo.cs
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.csproj.CoreCompileInputs.cache
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.dll
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/refint/MiniMaxAIDocx.Core.dll
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/MiniMaxAIDocx.Core.pdb
+/home/openclaw/.openclaw/workspace/skills/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Core/obj/Debug/net8.0/ref/MiniMaxAIDocx.Core.dll
