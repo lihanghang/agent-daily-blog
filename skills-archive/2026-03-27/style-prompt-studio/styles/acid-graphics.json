@@ -1,0 +1,61 @@
+{
+  "name": "acid-graphics",
+  "display_name": "Acid Graphics",
+  "description": "酸性设计风格 - 金属色、液态形状、Y2K 美学、未来感",
+  "colors": {
+    "background": "#E8E8E8",
+    "palette": ["#B185FF", "#FF6EC7", "#7BFFCB", "#FFD700", "#C0C0C0"],
+    "contrast": {
+      "black": "#1A1A1A",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "free-form dynamic",
+    "margins": "50px",
+    "focus": "center",
+    "module_gap": "24px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "1-2px",
+      "color": "#C0C0C0"
+    },
+    "fills": "gradient-metallic",
+    "decorations": [
+      "liquid-shapes",
+      "chrome-elements",
+      "holographic-accents",
+      "y2k-icons",
+      "star-sparkles",
+      "mesh-gradients"
+    ],
+    "data_viz": [
+      "bubbly-charts",
+      "metallic-cards",
+      "holographic-badges"
+    ]
+  },
+  "texture": {
+    "type": "chromatic",
+    "noise": true,
+    "halftone": true,
+    "glow": true
+  },
+  "typography": {
+    "headers": "Acid Grotesk / Space Grotesk / Pangram Pangram",
+    "body": "Inter / Helvetica Neue",
+    "numbers": "Space Mono / Digit",
+    "sizes": {
+      "hero": "56-72pt",
+      "title": "36-48pt",
+      "subtitle": "22-28pt",
+      "body": "16-18pt",
+      "caption": "12-14pt"
+    }
+  },
+  "prompt_template": "Acid graphics style, Y2K aesthetic, metallic chrome elements, {background} background, {palette} colors, liquid shapes, holographic accents, mesh gradients, star sparkles, futuristic, --ar {aspect_ratio} --style raw --v 6",
+  "negative_prompt": "vintage, retro, rustic, natural, organic, minimalist, brutalist, earth tones, muted colors, traditional",
+  "tags": ["acid", "y2k", "chrome", "holographic", "metallic", "futuristic", "2000s"]
+}

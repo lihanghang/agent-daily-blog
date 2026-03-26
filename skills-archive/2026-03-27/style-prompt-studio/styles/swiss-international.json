@@ -1,0 +1,42 @@
+{
+  "name": "swiss-international",
+  "display_name": "Swiss International Style",
+  "description": "瑞士国际主义风格 - 斜向排版、几何色块、高饱和对比色、Helvetica 字体",
+  "colors": {
+    "background": "#E5E5E5",
+    "palette": ["#007AFF", "#00994D", "#FFF066", "#9966FF", "#FF3399", "#FF8800", "#66DDFF"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "asymmetric diagonal",
+    "margins": "40px",
+    "focus": "dynamic",
+    "module_gap": "24px"
+  },
+  "elements": {
+    "outlines": {
+      "present": false
+    },
+    "fills": "flat",
+    "decorations": [
+      "geometric-color-blocks",
+      "diagonal-typography",
+      "sans-serif-headers"
+    ]
+  },
+  "texture": {
+    "type": "clean",
+    "noise": false
+  },
+  "typography": {
+    "headers": "Helvetica / Inter / Arial",
+    "body": "Helvetica / Arial",
+    "style": "clean sans-serif"
+  },
+  "prompt_template": "Swiss international style poster, brutalist graphic design, bold geometric shapes, diagonal typography layout, high saturation primary colors, {palette}, light gray background {background}, clean sans-serif typography, asymmetric composition, --ar {aspect_ratio} --style raw --v 6",
+  "negative_prompt": "gradients, shadows, decorative, ornate, serif fonts, vintage textures, rustic",
+  "tags": ["swiss", "international", "brutalist", "geometric", "typography-driven", "japanese-design"]
+}

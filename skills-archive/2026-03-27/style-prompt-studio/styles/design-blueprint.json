@@ -1,0 +1,48 @@
+{
+  "name": "design-blueprint",
+  "display_name": "Design Blueprint",
+  "description": "设计蓝图风格 - Figma 选择框、标注线、UI 文档美学",
+  "colors": {
+    "background": "#FFFFFF",
+    "palette": ["#66B8CC", "#333333", "#888888", "#CCCCCC"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "technical grid",
+    "margins": "40px",
+    "focus": "distributed",
+    "module_gap": "24px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "1px",
+      "color": "#66B8CC"
+    },
+    "fills": "flat-or-blur",
+    "decorations": [
+      "figma-selection-boxes",
+      "control-points",
+      "annotation-lines",
+      "numbered-labels",
+      "measurement-arrows"
+    ]
+  },
+  "texture": {
+    "type": "clean",
+    "noise": false,
+    "blur": true
+  },
+  "typography": {
+    "headers": "Inter / SF Pro / Helvetica",
+    "body": "Inter / Roboto",
+    "numbers": "SF Mono / JetBrains Mono",
+    "style": "technical sans-serif"
+  },
+  "prompt_template": "Design process documentation, Figma blueprint style, white background, cyan grid lines #66B8CC, selection boxes with control points, numbered labels, technical annotation style, UI/UX design mockup aesthetic, clean sans-serif typography, blurred content placeholders, --ar {aspect_ratio} --style raw --v 6",
+  "negative_prompt": "photorealistic, decorative, vintage, grunge, shadows, gradients, artistic",
+  "tags": ["blueprint", "figma", "ui-design", "technical", "documentation", "process"]
+}

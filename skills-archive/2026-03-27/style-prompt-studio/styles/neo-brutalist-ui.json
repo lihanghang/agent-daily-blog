@@ -1,0 +1,50 @@
+{
+  "name": "neo-brutalist-ui",
+  "display_name": "Neo-Brutalist UI",
+  "description": "新粗野主义 UI 风格 - 粗黑边框、卡片布局、平涂色彩、Memphis 影响",
+  "colors": {
+    "background": "#F5F0E6",
+    "palette": ["#A8E4CF", "#FFD93D", "#E5B3FF", "#66CCFF", "#FFB380"],
+    "contrast": {
+      "black": "#1A1A1A",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "card-based modular",
+    "margins": "24px",
+    "focus": "top-left",
+    "module_gap": "16px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "3px",
+      "color": "#1A1A1A"
+    },
+    "fills": "flat",
+    "decorations": [
+      "card-containers",
+      "black-borders",
+      "flat-buttons",
+      "simple-icons"
+    ],
+    "data_viz": [
+      "rating-stars",
+      "stat-cards",
+      "profile-panels"
+    ]
+  },
+  "texture": {
+    "type": "clean",
+    "noise": false
+  },
+  "typography": {
+    "headers": "Archivo Black / Anton / Inter Bold",
+    "body": "Inter / Roboto",
+    "style": "bold sans-serif"
+  },
+  "prompt_template": "Neo-brutalist web UI design, dashboard interface, cream background {background}, pastel color panels {palette}, thick 3px black outlines, card-based layout, flat colors, bold sans-serif typography, contemporary SaaS aesthetic, --ar {aspect_ratio} --style raw --v 6",
+  "negative_prompt": "gradients, soft shadows, skeuomorphic, realistic, serif fonts, delicate, ornate, vintage",
+  "tags": ["neo-brutalism", "ui-design", "dashboard", "cards", "bold", "contemporary"]
+}

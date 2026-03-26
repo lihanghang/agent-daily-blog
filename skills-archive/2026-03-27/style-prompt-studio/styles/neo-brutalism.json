@@ -1,0 +1,59 @@
+{
+  "name": "neo-brutalism",
+  "display_name": "Neo-Brutalism",
+  "description": "新粗野主义风格 - 原色、硬阴影、粗体字、原始感",
+  "colors": {
+    "background": "#FFF8E7",
+    "palette": ["#FF4D4D", "#4D94FF", "#FFD93D", "#6BCB77"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "asymmetric bold",
+    "margins": "40px",
+    "focus": "top-left",
+    "module_gap": "16px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "4px",
+      "color": "#000000"
+    },
+    "fills": "flat",
+    "decorations": [
+      "hard-shadow-boxes",
+      "brutalist-frames",
+      "raw-typography",
+      "stark-dividers",
+      "bold-accents"
+    ],
+    "data_viz": [
+      "bold-bars",
+      "raw-cards",
+      "stark-comparisons"
+    ]
+  },
+  "texture": {
+    "type": "raw",
+    "noise": false,
+    "halftone": false
+  },
+  "typography": {
+    "headers": "Archivo Black / Anton / Impact",
+    "body": "Space Mono / IBM Plex Mono",
+    "numbers": "JetBrains Mono / Space Mono",
+    "sizes": {
+      "hero": "64-80pt",
+      "title": "40-56pt",
+      "subtitle": "24-32pt",
+      "body": "16-20pt",
+      "caption": "12-14pt"
+    }
+  },
+  "prompt_template": "Neo-brutalism style, raw design, bold typography, {background} background, primary colors {palette}, thick {outline_width} black outlines, hard shadows, stark contrast, unpolished aesthetic, --ar {aspect_ratio} --style raw",
+  "negative_prompt": "gradients, soft shadows, polished, refined, elegant, delicate, ornate, vintage, subtle, pastel",
+  "tags": ["brutalism", "neo-brutalism", "bold", "raw", "stark", "primary-colors", "typography-driven"]
+}

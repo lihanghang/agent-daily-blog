@@ -1,0 +1,57 @@
+{
+  "name": "minimalist-clean",
+  "display_name": "Minimalist Clean",
+  "description": "极简主义风格 - 留白、细线、低饱和度、专业感",
+  "colors": {
+    "background": "#FFFFFF",
+    "palette": ["#F8F9FA", "#E9ECEF", "#343A40", "#007BFF"],
+    "contrast": {
+      "black": "#212529",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "8-column flexible",
+    "margins": "120px",
+    "focus": "top-left",
+    "module_gap": "48px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "1px",
+      "color": "#DEE2E6"
+    },
+    "fills": "flat",
+    "decorations": [
+      "thin-lines",
+      "subtle-dots",
+      "soft-rectangles"
+    ],
+    "data_viz": [
+      "simple-line-charts",
+      "minimal-bars",
+      "clean-cards"
+    ]
+  },
+  "texture": {
+    "type": "smooth",
+    "noise": false,
+    "halftone": false
+  },
+  "typography": {
+    "headers": "Inter / SF Pro Display / Helvetica Neue",
+    "body": "Inter / Roboto / Noto Sans",
+    "numbers": "SF Mono / JetBrains Mono",
+    "sizes": {
+      "hero": "56-72pt",
+      "title": "36-48pt",
+      "subtitle": "20-24pt",
+      "body": "16-18pt",
+      "caption": "12-14pt"
+    }
+  },
+  "prompt_template": "Minimalist design, clean aesthetic, white background {background}, subtle shadows, {palette} accent colors, thin lines, sans-serif typography, generous whitespace, professional layout, --ar {aspect_ratio} --style raw",
+  "negative_prompt": "gradients, heavy shadows, cluttered, ornate, decorative, vintage, retro, colorful, neon, thick borders",
+  "tags": ["minimal", "clean", "professional", "modern", "simple", "elegant"]
+}

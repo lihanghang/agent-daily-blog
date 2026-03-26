@@ -1,0 +1,51 @@
+{
+  "name": "y2k-pixel-retro",
+  "display_name": "Y2K Pixel Retro",
+  "description": "Y2K 像素复古风格 - 老式电脑、像素艺术、噪点纹理、90 年代美学",
+  "colors": {
+    "background": "#2D2D2D",
+    "palette": ["#FFD700", "#FF8C00", "#4A7C4E", "#C0C0C0", "#6666FF"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "modular blocks",
+    "margins": "32px",
+    "focus": "distributed",
+    "module_gap": "24px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "2px",
+      "color": "#000000"
+    },
+    "fills": "flat-with-noise",
+    "decorations": [
+      "pixel-art-computers",
+      "crt-monitors",
+      "isometric-tech",
+      "90s-icons"
+    ],
+    "data_viz": [
+      "color-blocks",
+      "retro-infographics"
+    ]
+  },
+  "texture": {
+    "type": "noise-grain",
+    "noise": true,
+    "halftone": false,
+    "vintage": true
+  },
+  "typography": {
+    "headers": "Archivo Black / Impact / VT323",
+    "body": "Courier / VT323 / Space Mono",
+    "style": "bold condensed or monospace"
+  },
+  "prompt_template": "Retro Y2K style design, pixel art aesthetic, dark textured background {background}, bright color blocks {palette}, isometric pixel art computers, 1990s CRT monitor, noise and grain texture, bold condensed typography, memphis design influence, --ar {aspect_ratio} --style raw --v 6",
+  "negative_prompt": "modern, clean, minimal, smooth, gradient, photorealistic, 2020s, corporate, sans-serif only",
+  "tags": ["y2k", "pixel-art", "retro", "90s", "vintage", "tech", "memphis"]
+}

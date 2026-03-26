@@ -1,0 +1,62 @@
+{
+  "name": "cyberpunk-neon",
+  "display_name": "Cyberpunk Neon",
+  "description": "赛博朋克风格 - 霓虹色、深色背景、发光效果、科技感",
+  "colors": {
+    "background": "#0D0D1A",
+    "palette": ["#FF00FF", "#00FFFF", "#FFFF00", "#FF0080", "#00FF66"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "asymmetric dynamic",
+    "margins": "60px",
+    "focus": "golden-ratio",
+    "module_gap": "32px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "2px",
+      "color": "#00FFFF"
+    },
+    "fills": "gradient",
+    "decorations": [
+      "neon-lines",
+      "tech-grids",
+      "circuit-patterns",
+      "scanlines",
+      "holographic-panels",
+      "data-streams"
+    ],
+    "data_viz": [
+      "holographic-charts",
+      "glow-bars",
+      "radar-charts",
+      "hex-grids"
+    ]
+  },
+  "texture": {
+    "type": "scanlines",
+    "noise": true,
+    "halftone": false,
+    "glow": true
+  },
+  "typography": {
+    "headers": "Orbitron / Rajdhani / Audiowide",
+    "body": "Rajdhani / Exo 2 / Roboto",
+    "numbers": "Share Tech Mono / Orbitron",
+    "sizes": {
+      "hero": "52-64pt",
+      "title": "36-42pt",
+      "subtitle": "22-28pt",
+      "body": "16-20pt",
+      "caption": "12-14pt"
+    }
+  },
+  "prompt_template": "Cyberpunk style, neon lights, dark background {background}, vibrant colors {palette}, glow effects, tech grids, futuristic UI elements, scanlines, holographic accents, --ar {aspect_ratio} --style raw --q 2",
+  "negative_prompt": "bright background, pastel colors, vintage, retro, rustic, natural, organic, hand-drawn, watercolor, minimalist",
+  "tags": ["cyberpunk", "neon", "futuristic", "sci-fi", "tech", "glow", "dark"]
+}

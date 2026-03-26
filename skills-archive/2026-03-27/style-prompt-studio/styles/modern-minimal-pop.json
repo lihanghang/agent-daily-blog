@@ -1,0 +1,61 @@
+{
+  "name": "modern-minimal-pop",
+  "display_name": "Modern Minimal Pop",
+  "description": "现代极简波普风格 - 柔和粉彩色、星爆图形、瑞士平面设计影响、Instagram 美学",
+  "colors": {
+    "background": "#1A1A1A",
+    "backgrounds_light": ["#D4C4E8", "#FFD4E4", "#E4FFE4"],
+    "palette": ["#A8E6C8", "#FFF4BD", "#FF8B7A", "#8B7AFF", "#FFD4E4"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "free-form asymmetric",
+    "margins": "60px",
+    "focus": "distributed",
+    "module_gap": "32px",
+    "format": "1:1 square (Instagram)"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "1-2px",
+      "color": "#FFFFFF or #000000"
+    },
+    "fills": "flat",
+    "decorations": [
+      "star-burst",
+      "thin-circles",
+      "tilted-rectangles",
+      "L-shaped-arrows",
+      "eye-icon",
+      "water-ripple"
+    ],
+    "data_viz": [
+      "minimal-cards",
+      "color-blocks"
+    ]
+  },
+  "texture": {
+    "type": "clean",
+    "noise": false,
+    "halftone": false,
+    "water_effect": true
+  },
+  "typography": {
+    "headers": "Inter / Helvetica / Arial",
+    "body": "Inter / Helvetica",
+    "style": "lowercase preferred",
+    "sizes": {
+      "hero": "48-64pt",
+      "title": "32-40pt",
+      "subtitle": "18-24pt",
+      "body": "14-16pt"
+    }
+  },
+  "prompt_template": "Modern minimal pop art style, Instagram post template, {background} background, pastel colors {palette}, star burst graphics, thin line circles, tilted color blocks, small arrows, minimalist icons, clean sans-serif typography, flat design, Swiss design influence, contemporary aesthetic, --ar {aspect_ratio} --style raw",
+  "negative_prompt": "gradients, drop shadows, 3D effects, bevels, photorealistic, vintage, grunge, cluttered, thick black outlines, retro textures",
+  "tags": ["minimal", "pop", "pastel", "instagram", "contemporary", "swiss-design", "clean", "typography-driven"]
+}

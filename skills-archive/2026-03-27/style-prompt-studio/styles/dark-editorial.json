@@ -1,0 +1,44 @@
+{
+  "name": "dark-editorial",
+  "display_name": "Dark Editorial Minimalism",
+  "description": "暗黑极简 Editorial 风格 - 深色背景、白色点阵、线框插画、精致知识分子美学",
+  "colors": {
+    "background": "#0A0A0F",
+    "palette": ["#E85D2A", "#FFFFFF", "#888888", "#1A1A20"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "editorial traditional",
+    "margins": "80px",
+    "focus": "center",
+    "module_gap": "48px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "1px",
+      "color": "#FFFFFF"
+    },
+    "fills": "flat",
+    "decorations": [
+      "dot-grid-pattern",
+      "wireframe-illustration",
+      "white-outlines"
+    ]
+  },
+  "texture": {
+    "type": "dot-pattern",
+    "noise": false
+  },
+  "typography": {
+    "headers": "Georgia / Playfair Display / Times",
+    "body": "Georgia / Times New Roman",
+    "style": "serif editorial"
+  },
+  "prompt_template": "Dark editorial design, New York Times style, black background {background} with white dot grid pattern, minimalist line art illustration, white outline wireframe, {palette} accent, dramatic negative space, clean serif typography, sophisticated intellectual aesthetic, --ar {aspect_ratio} --style raw --v 6",
+  "negative_prompt": "bright background, colorful, gradients, drop shadows, 3D, casual, playful, sans-serif, brutalist",
+  "tags": ["editorial", "dark-mode", "minimalist", "newspaper", "sophisticated", "intellectual"]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "retro-pop-art",
+  "display_name": "Retro Pop Art",
+  "description": "70 年代复古波普艺术风格 - 厚边框、高饱和度、几何图形",
+  "colors": {
+    "background": "#F5F0E6",
+    "palette": ["#FF6B6B", "#4ECDC4", "#FFD93D", "#6BCB77"],
+    "contrast": {
+      "black": "#000000",
+      "white": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "grid": "12-column symmetric",
+    "margins": "80px",
+    "focus": "center",
+    "module_gap": "24px"
+  },
+  "elements": {
+    "outlines": {
+      "present": true,
+      "width": "3px",
+      "color": "#000000"
+    },
+    "fills": "flat",
+    "decorations": [
+      "quarter-circles",
+      "concentric-rings",
+      "wavy-lines",
+      "star-bursts",
+      "block-arrows"
+    ],
+    "data_viz": [
+      "donut-charts",
+      "bar-charts",
+      "info-cards"
+    ]
+  },
+  "texture": {
+    "type": "none",
+    "noise": false,
+    "halftone": false
+  },
+  "typography": {
+    "headers": "Cooper Black / Souvenir / Bookman Bold",
+    "body": "Helvetica / Futura",
+    "numbers": "Impact / League Gothic",
+    "sizes": {
+      "hero": "48-56pt",
+      "title": "32-36pt",
+      "subtitle": "24-28pt",
+      "body": "18-22pt",
+      "caption": "14-16pt"
+    }
+  },
+  "prompt_template": "Retro pop art style, 1970s aesthetic, flat design with thick {outline_width} black outlines, background: {background}, accent colors: {palette}, geometric decorative elements, clean grid layout, no gradients, no shadows, high contrast, bold typography, --ar {aspect_ratio} --style raw",
+  "negative_prompt": "gradients, shadows, 3d effects, realistic, photorealistic, blurry, low contrast, pastel colors, neon colors, cluttered layout, thin fonts",
+  "tags": ["retro", "pop-art", "70s", "vintage", "bold", "colorful", "geometric"]
+}

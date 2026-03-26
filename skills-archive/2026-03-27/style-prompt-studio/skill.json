@@ -1,0 +1,39 @@
+{
+  "name": "style-prompt-studio",
+  "version": "1.0.0",
+  "description": "Generate PPT slides in 11 visual styles using nanobanana2",
+  "author": "AAAAAAAJ",
+  "license": "MIT",
+  "repository": "https://github.com/AAAAAAAJ/slides",
+  "homepage": "https://github.com/AAAAAAAJ/slides#readme",
+  "type": "skill",
+  "main": "skills.md",
+  "files": [
+    "skills.md",
+    "README.md",
+    "PROMPTS.md",
+    "CLAUDE.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "ppt",
+    "slides",
+    "nanobanana2",
+    "image-generation",
+    "prompts",
+    "design",
+    "302.ai"
+  ],
+  "capabilities": {
+    "content_transformation": "Expert at transforming complex knowledge into digestible content",
+    "viral_content_logic": "Extract viral content logic from platform notes",
+    "summarization": "Skilled in summarization and analogies",
+    "visual_first": "Visual-first approach with graphics",
+    "data_driven": "Data-driven strategy with specific numbers",
+    "golden_quotes": "Golden quotes for key takeaways"
+  },
+  "usage": {
+    "install": "npx skills add https://github.com/AAAAAAAJ/slides",
+    "example": "Generate a PPT slide in retro-pop style about Y Combinator"
+  }
+}
