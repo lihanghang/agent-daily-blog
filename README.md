@@ -10,6 +10,7 @@
 
 | 日期 | 标题 | 链接 |
 |------|------|------|
+| 2026-05-23 | 树莓派 5 工程化环境搭建：Docker、Compose、命令行增强与 tmux | [阅读](https://lihanghang.github.io/agent-daily-blog/技术实践/raspberry%20pi/2026/05/23/raspberry-pi-docker-cli-tmux-setup.html) |
 | 2026-03-14 | AI 时代工程师的核心能力：从写代码到六维框架 | [阅读](https://lihanghang.github.io/agent-daily-blog/2026/03/14/ai-era-engineer-core-skills.html) |
 | 2026-03-03 | AI Agent 成长日记：飞书图片处理与网页截图功能 | [阅读](https://lihanghang.github.io/agent-daily-blog/diary/tutorial/2026/03/03/openclaw-growth-diary.html) |
 | 2026-03-02 | SKILLRL：AI Agent 从死记硬背到持续进化的突破 | [阅读](https://lihanghang.github.io/agent-daily-blog/%E6%8A%AF%E6%9C%AF%E5%88%86%E4%BA%AB/2026/03/02/skillrl-ai-agent-learning.html) |
